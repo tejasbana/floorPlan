@@ -17,3 +17,4 @@ https://drive.google.com/file/d/1FtmtF7hgLsXycCtH-TI6dwSpSTiG9g--/view?usp=shari
 3. cloab_server.py is server file for running in colab  (install flask_ngrok for running flask on colab)
 
 <h2> Colab_nootbook for running demo on colab </h2>
+https://github.com/tejasbana/floorPlan/blob/main/colab_nootbook.ipynb
