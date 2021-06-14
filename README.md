@@ -7,7 +7,7 @@ https://drive.google.com/file/d/1c-c0f4zjQfZwykzRpTnc2rA0jnkfckdU/view?usp=shari
 
 OR
 
-Download the pickle format model and un-commnet in the script
+Download the pickle format model and uncomment pickle.load in the script
 https://drive.google.com/file/d/1FtmtF7hgLsXycCtH-TI6dwSpSTiG9g--/view?usp=sharing
 
 <h1> Files Description </h1>
