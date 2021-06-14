@@ -19,8 +19,8 @@ from flask import Flask, flash, render_template, request
 # this is done on purpose to stay compatible with `Flask-Uploads`
 from flask_uploads import IMAGES, UploadSet, configure_uploads
 
-# # Make url public for colab
-# from flask_ngrok import run_with_ngrok
+# Make url public for colab
+from flask_ngrok import run_with_ngrok
 
 
 app = Flask(__name__, static_folder='generated')
@@ -32,7 +32,7 @@ configure_uploads(app, photos)
 test_dir ="./"
 
 # Start ngrok when the app is running
-# run_with_ngrok(app)
+run_with_ngrok(app)
 
 def denorm(img_tensor):
     return img_tensor*0.5 + 0.5
@@ -81,5 +81,5 @@ def upload():
     return render_template('upload.html')
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=True, threaded=True)
-    # app.run()
+    # app.run(debug=True, use_reloader=True, threaded=True)
+    app.run()
