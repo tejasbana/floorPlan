@@ -13,6 +13,7 @@ import torch.nn as nn
 from torch.nn.utils import spectral_norm
 import PIL
 from PIL import Image
+import pickle 
 from Model import UNet 
 from flask import Flask, flash, render_template, request
 # please note the import from `flask_uploads` - not `flask_reuploaded`!!
@@ -64,6 +65,9 @@ def upload():
 
         model = UNet(True)
         model.load_state_dict(torch.load("./generator.pth",map_location=torch.device('cpu')))
+        # Rather use pickel model
+        # filename = 'model_pickle.sav'
+        # model = pickle.load(open(filename, 'rb'))
         prediction = model(image).detach()
         prediction = denorm(prediction.squeeze(0))
         fname = "/test-images.png"
