@@ -10,17 +10,19 @@ from torch.nn.utils import spectral_norm
 import PIL
 from PIL import Image
 import pickle 
-from Model import UNet
+# from Model import UNet
 
 test_dir = "./"
- # Load pretrained model
-model = UNet(True)
-model.load_state_dict(torch.load("./generator.pth",map_location=torch.device('cpu')))
-# Rather use pickel model
-# filename = 'model_pickle.sav'
-# model = pickle.load(open(filename, 'rb'))
-# Define function to display dataset
 
+ # Load pretrained model
+# model = UNet(True)
+# model.load_state_dict(torch.load("./generator.pth",map_location=torch.device('cpu')))
+# Rather use pickel model
+
+filename = 'model_pickle.sav'
+model = pickle.load(open(filename, 'rb'))
+
+# Define function to display dataset
 def denorm(img_tensor):
     return img_tensor*0.5 + 0.5
 
