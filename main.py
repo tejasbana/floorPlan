@@ -21,6 +21,12 @@ from flask import Flask, flash, render_template, request
 from flask_uploads import IMAGES, UploadSet, configure_uploads
 # # Make url public for colab
 # from flask_ngrok import run_with_ngrok
+import gdown
+
+if not os.path.isfile("./model_pickle.sav"):
+    url = 'https://drive.google.com/uc?id=1FtmtF7hgLsXycCtH-TI6dwSpSTiG9g--'
+    output = 'model_pickle.sav'
+    gdown.download(url, output, quiet=False) 
 
 
 app = Flask(__name__, static_folder='generated')
