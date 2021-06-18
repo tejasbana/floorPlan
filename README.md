@@ -2,6 +2,7 @@
 
 Download the pickle formated model and place it on the same directory.
 https://drive.google.com/uc?id=1Xox9t_1RfWlFSIWxIJD4U_vUx55mfy1r
+
 OR
 
 Download model weights and uncomment torch.load and Unet in the script
