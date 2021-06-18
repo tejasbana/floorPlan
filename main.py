@@ -26,7 +26,7 @@ from werkzeug.utils import secure_filename
 import gdown
 
 if not os.path.isfile("./model_pickle.sav"):
-    url = 'https://drive.google.com/uc?id=1FtmtF7hgLsXycCtH-TI6dwSpSTiG9g--'
+    url = 'https://drive.google.com/uc?id=1Xox9t_1RfWlFSIWxIJD4U_vUx55mfy1r'
     output = 'model_pickle.sav'
     gdown.download(url, output, quiet=False) 
 
