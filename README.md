@@ -8,6 +8,7 @@ Download model weights and uncomment torch.load and Unet in the script
 https://drive.google.com/file/d/1c-c0f4zjQfZwykzRpTnc2rA0jnkfckdU/view?usp=sharing
 
 <h1> Files for deployment GCP </h1>
+
 1. main.py
 2. pickle formated model (main.py can download it, if not present)
 3. requirements.txt
