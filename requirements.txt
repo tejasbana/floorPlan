@@ -7,3 +7,5 @@ Flask==1.1.1
 flask_uploads==0.2.1 
 pickle-mixin==1.0.2
 flask-cors==3.0.10
+matplotlib
+opencv-python
