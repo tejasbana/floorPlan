@@ -45,7 +45,7 @@ from hgan import one_hot_encoding, process_edges, custom_input, floorplan_collat
 from werkzeug.utils import secure_filename
 import gdown
 # # Make url public for colab
-# from flask_ngrok import run_with_ngrok
+from flask_ngrok import run_with_ngrok
 
 if not os.path.isfile("./housegan_pickle.sav"):
     url = 'https://drive.google.com/uc?id=1rRCQPDX0kFPqyJMfc-I-xXa9ly5FlX-L'
@@ -68,7 +68,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 test_dir ="./"
 # For colab Start ngrok when the app is running
-# run_with_ngrok(app)
+run_with_ngrok(app)
 
 CORS(app)
 
@@ -76,7 +76,7 @@ CORS(app)
 # run_with_ngrok(app)
 
 def denorm(img_tensor):
-    return img_tensor
+    return img_tensor*0.5 + 0.5
 
 
 def allowed_file(filename):
@@ -127,11 +127,8 @@ edges = [
 @app.route("/", methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST' :
-    	data = request.get_json(force=True)
-    	nodes = data['nodes']
-    	edges = data['edges']
         print("this is request.files:")
-        # print(request.files)
+        print(request.files)
         if True:#'photo' in request.files:
 
             print("request has photo!!")
