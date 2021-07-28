@@ -16,3 +16,5 @@ Flask
 flask_uploads
 pickle-mixin
 flask-cors
+pycotools
+gdown
