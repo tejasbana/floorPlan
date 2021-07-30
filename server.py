@@ -14,7 +14,11 @@ from torch.nn.utils import spectral_norm
 import PIL
 from PIL import Image
 import math
+import io
+from io import StringIO
+import base64
 import sys
+from base64 import encodebytes
 import random
 import torchvision.transforms as transforms
 from torchvision.utils import save_image
@@ -34,6 +38,11 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import cv2
 import webcolors
+import sys
+import requests
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import storage
 # from Model import UNet 
 import pickle 
 from flask import Flask, flash, render_template, request, url_for
@@ -45,7 +54,7 @@ from hgan import one_hot_encoding, process_edges, custom_input, floorplan_collat
 from werkzeug.utils import secure_filename
 import gdown
 # # Make url public for colab
-# from flask_ngrok import run_with_ngrok
+from flask_ngrok import run_with_ngrok
 
 if not os.path.isfile("./housegan_pickle.sav"):
     url = 'https://drive.google.com/uc?id=1rRCQPDX0kFPqyJMfc-I-xXa9ly5FlX-L'
@@ -68,9 +77,17 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 test_dir ="./"
 # For colab Start ngrok when the app is running
-# run_with_ngrok(app)
+run_with_ngrok(app)
 
 CORS(app)
+
+# FIREBASE
+cred = credentials.Certificate('./firebase_cre.json')
+# cred = credentials.RefreshToken('./firebase_cre.json')
+firebase_admin.initialize_app(cred, {
+                'storageBucket': 'housegan-3f845.appspot.com'
+            })
+bucket = storage.bucket()
 
 # Start ngrok when the app is running
 # run_with_ngrok(app)
@@ -127,10 +144,10 @@ edges = [
 @app.route("/", methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST' :
-    	data = request.get_json(force=True)
-    	nodes = data['nodes']
-    	edges = data['edges']
-        print("this is request.files:")
+        data = request.get_json(force=True)
+        nodes = data['nodes']
+        edges = data['edges']
+        print(data)
         # print(request.files)
         if True:#'photo' in request.files:
 
@@ -224,6 +241,36 @@ def upload():
             gen_path_to_save = "generated/plan0.png"
             flash("Processed Successfully", "p")
             path_to_save = [gen_path_to_save, total_path_to_save]
+
+            # JSON
+            # pil_img = Image.open("./generated/plan0.png", mode='r') # reads the PIL image
+            # byte_arr = io.BytesIO()
+            # pil_img.save(byte_arr, format='PNG') # convert the PIL image to byte array
+            # encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii') # encode as base64
+            
+
+            # Firebase
+            # image_data = requests.get("http://127.0.0.1:5000/generated/plan0.png").content
+            # image_data = Image.open("./generated/plan0.png", mode='r').convert("RGB") #Image.open(io.BytesIO(base64.b64decode(encoded_img)))
+            for i in range(num_variations):
+                # pil_img = Image.open("./generated/plan{}.png".format(i), mode='r').convert("RGB")
+                # pil_img.save("./generated/plan{}.jpg".format(i))
+
+                # with open("./generated/plan{}.jpg".format(i), "rb") as image2string:
+                #     converted_string = base64.b64encode(image2string.read())
+
+                bucket = storage.bucket()
+                blob = bucket.blob('floorplan/plan{}.jpg'.format(i))
+                # blob.upload_from_string(
+                #         converted_string,
+                #         content_type='image/jpg'
+                #         ,metadata: {contentType: "image/png"}
+                #     )
+                blob.upload_from_filename("./generated/plan{}.png".format(i))
+                blob.make_public()
+                print(blob.public_url)
+
+            # return encoded_img
             return render_template('upload.html', img_path=path_to_save)
 
         else:
@@ -235,4 +282,5 @@ def upload():
 
 if __name__ == "__main__":
     # app.run(debug=True, use_reloader=True, threaded=True)
+    # app.run(host="0.0.0.0", port=5000)
     app.run()

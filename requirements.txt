@@ -18,3 +18,5 @@ pickle-mixin
 flask-cors
 pycotools
 gdown
+firebase-admin
+flask_ngrok

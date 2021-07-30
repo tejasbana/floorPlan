@@ -16,9 +16,9 @@
     {% endwith %}
     {% if img_path is defined %}
         FloorPlan<br>
-        <img src="{{img_path[0]}}" alt ="Server Error" style="width:30%;">
+        <img src="data:image/png;base64,{{img_path}}" alt ="Server Error" style="width:30%;">
         <br>ALL Generated<br>
-        <img src="{{img_path[1]}}" alt ="Server Error" style="width:30%;">
+        <img src="data:image/png;base64,{{img_path}}" alt ="Server Error" style="width:30%;">
     {% endif %}
 
 <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
