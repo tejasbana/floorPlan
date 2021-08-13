@@ -6,9 +6,17 @@ Code and instructions :
 2. apt install libgraphviz-dev
 3. pip install pygraphviz
 
-<h3>Need to do apt libgraphviz-dev before installing pygraphviz</h3>
+Need to do apt libgraphviz-dev before installing pygraphviz
 
-Run server.py
+<h3>Files without boundary</h3>
+For colab Run-----colab_server.py
+For colab+React Run----server.py
+For GCP Run----firebase_server.py
+
+<h3>Files with boundary</h3>
+For colab Run-----colab_boundary_server.py
+For colab+React Run----boundary_server.py
+For GCP Run----firebase_boundary_server.py
 
 <h3>All Floorplan are saved at: "/generated/plan{}.png"
 <br>All xray images are saved at: "/generated/xray{}.png"
